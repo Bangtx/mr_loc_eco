@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+
+  frontend:
+    container_name: my_web_frontend
+    image: codenetjp/jfga_frontend:221219
+    volumes:
+      - './frontend:/app/frontend'
+      - './frontend/node_modules:/app/frontend/node_modules'
+#    env_file: .env
+    ports:
+      - '2000:2000'
+    expose:
+      - 2000
+    command: ["npm", "run", "serve", "--", "--port", "2000"]
+
+  backend:
+    container_name: my_web__backend
+    image: codenetjp/jfga_backend:221219
+#    env_file: .env
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - '2100:2100'
+    depends_on:
+      - db
+    entrypoint: [ "poetry", "run" ]
+    command: [ "uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "2100" ]
+
+  db:
+    container_name: my_web_db
+    image: postgres:14
+    ports:
+      - "2200:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=default
+    volumes:
+      - db14:/var/lib/postgresql/data
+
+volumes:
+  db14:
+    driver: local
