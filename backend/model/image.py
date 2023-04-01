@@ -2,7 +2,7 @@ from model.base import BaseModel
 from peewee import IntegerField, CharField
 from datetime import datetime
 from fastapi.responses import FileResponse
-from config.get_env import BACKEND_URL
+from config.get_env import VUE_APP_API_URL
 
 
 class Image(BaseModel):
@@ -22,6 +22,6 @@ class Image(BaseModel):
         with open(path, "wb+") as file_object:
             file_object.write(image)
 
-        url = f'{BACKEND_URL}/image/?path={path}'
+        url = f'{VUE_APP_API_URL}/image/?path={path}'
 
         return super().create(url=url, path=path)

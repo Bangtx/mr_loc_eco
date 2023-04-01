@@ -4,11 +4,11 @@ services:
 
   frontend:
     container_name: my_web_frontend
-    image: codenetjp/jfga_frontend:221219
+    image: bangtx/mini_project_fe
     volumes:
       - './frontend:/app/frontend'
       - './frontend/node_modules:/app/frontend/node_modules'
-#    env_file: .env
+    env_file: .env
     ports:
       - '2000:2000'
     expose:
@@ -17,8 +17,8 @@ services:
 
   backend:
     container_name: my_web__backend
-    image: codenetjp/jfga_backend:221219
-#    env_file: .env
+    image: bangtx/mini_project_be
+    env_file: .env
     volumes:
       - ./backend:/app/backend
     ports:

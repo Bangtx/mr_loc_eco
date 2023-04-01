@@ -1,6 +1,8 @@
-from dotenv import dotenv_values
+import os
+from dotenv import load_dotenv, find_dotenv
 
-config = dotenv_values(".env")
+load_dotenv(find_dotenv())
 
-print(config)
-BACKEND_URL = config['BACKEND_URL']
+_env = os.environ.get
+
+VUE_APP_API_URL = _env('VUE_APP_API_URL')
