@@ -22,7 +22,7 @@
           span.white--text.hidden-sm-and-down.font-size-12 Trang Chủ
         div.pa-2(@click="openAccountDialog")
           v-icon(color="white" ) mdi-account
-          span.white--text.hidden-sm-and-down.font-size-12 Tài Khoản
+          span.white--text.hidden-sm-and-down.font-size-12 {{user ? user.name : 'Tài Khoản '}}
         div
           v-btn(icon)
             v-icon(color="white" ) mdi-cart-outline
@@ -50,6 +50,7 @@
     account-dialog(
       :show="isOpenAccountDialog"
       @on-close="isOpenAccountDialog = false"
+      @update-user="updateUser"
     )
 
 </template>
@@ -65,7 +66,8 @@ const HeaderBar = {
     return {
       isShowCategoryInMobile: false,
       categoriesTop: [],
-      isOpenAccountDialog: false
+      isOpenAccountDialog: false,
+      user: JSON.parse(localStorage.getItem('user'))
     }
   },
   methods: {
@@ -90,7 +92,11 @@ const HeaderBar = {
       this.categoriesTop = [{name: 'Trang chủ', id: 0}].concat(this.$store.state.categories.categories)
     },
     openAccountDialog() {
+      if (this.user) return
       this.isOpenAccountDialog = true
+    },
+    updateUser() {
+      this.user = JSON.parse(localStorage.getItem('user'))
     }
   },
   mounted() {

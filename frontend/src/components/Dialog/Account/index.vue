@@ -80,6 +80,7 @@ const AccountDialog = defineComponent({
                 alert('Login successful')
                 localStorage.setItem('user', JSON.stringify(data.data))
                 emit('on-close')
+                emit('update-user')
             }
         }
 
