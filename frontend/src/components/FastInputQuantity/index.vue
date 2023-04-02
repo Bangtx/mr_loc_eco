@@ -1,10 +1,10 @@
 <template lang="pug">
   div
     div.btn.pa-2(@click="$emit('change-value', '-')")
-      span -
+      v-icon mdi-minus
     div.input.pa-2 {{ value }}
     div.btn.pa-2(@click="$emit('change-value', '+')")
-      span +
+      v-icon mdi-plus
 </template>
 
 <script>

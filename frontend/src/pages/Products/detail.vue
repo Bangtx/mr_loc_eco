@@ -2,7 +2,7 @@
   div
     header-bar
     .max-width.center
-      product-detail.max-width.center.pt-10(:screen-type="screenType" :product="product")
+      product-detail.max-width.center.pt-10(:screen-type="screenType")
       v-divider.mt-5
       h1.color-main.text-center Sản Phẩm Tương Tự
       .list-product
@@ -29,8 +29,7 @@ const Detail = {
   data() {
     return {
       screenType: 'pc',
-      newestProducts: [],
-      product: {}
+      newestProducts: []
     }
   },
   mounted() {
@@ -38,20 +37,8 @@ const Detail = {
     if (widthScreen > 1000) this.screenType = 'pc'
     else if (widthScreen > 600) this.screenType = 'tab'
     else this.screenType = 'mobile'
-
-    // get current product id
-    const {product_id} = router.currentRoute.query
-    this.getProduct(product_id)
   },
   methods: {
-    async getProduct(product_id) {
-      try {
-        const {data} = await api.get(`/product/get_one/${product_id}`)
-        this.product = data
-      } catch (e) {
-        console.log(e)
-      }
-    },
     async getNewestProducts() {
       this.newestProducts = (await getData(['product'], {product: {limit: 6}})).products
     },

@@ -5,9 +5,9 @@
         .pa-4
           v-row
             v-col(cols="12")
-              v-img(:src="product.images[0].url")
+              v-img(:src="mainImage ? mainImage.url : product.images[0].url")
           v-row
-            v-col(cols="3" v-for="img in product.images" :key="img.url")
+            v-col(cols="3" v-for="img in product.images" :key="img.url" @click="mainImage = img")
               v-img(:src="img.url")
             //v-col(cols="3")
             //  v-img(src="https://salt.tikicdn.com/cache/100x100/ts/product/89/3e/19/ad4dab5a03110603cba836c3853b2ae1.jpg.webp")
@@ -54,18 +54,38 @@
 
 <script>
 import FastInputQuantity from '../FastInputQuantity/index.vue'
+import api from "../../plugins/api";
+import router from "@/router";
 
 const ProductDetail = {
-  props: ['screenType', 'product'],
+  props: ['screenType'],
   components: {
     FastInputQuantity
+  },
+  data() {
+    return {
+      product: {images: [{url: null}]},
+      mainImage: null
+    }
+  },
+  mounted() {
+    const {product_id} = router.currentRoute.query
+    this.getProduct(product_id)
   },
   methods: {
     changeQuantity(action) {
       if (this.product.quantity === 0 && action === '-') return
       if (action === '+') this.product.quantity += 1
       if (action === '-') this.product.quantity -= 1
-    }
+    },
+    async getProduct(product_id) {
+      try {
+        const {data} = await api.get(`/product/get_one/${product_id}`)
+        this.product = { ...data, quantity: 1 }
+      } catch (e) {
+        console.log(e)
+      }
+    },
   }
 }
 
