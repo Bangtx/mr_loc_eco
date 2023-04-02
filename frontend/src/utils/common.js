@@ -31,13 +31,15 @@ export const getData = async (listData = [], query = {}) => {
 }
 
 
-export const createData = async (endpoint, data) => {
+export const createData = async (endpoint, payload) => {
     try {
-        await api.post(endpoint, data)
+        const {data} = await api.post(endpoint, payload)
         Vue.$toast.success('create successful')
+        return data
     } catch (e) {
         console.log(e)
     }
+    return null
 }
 
 

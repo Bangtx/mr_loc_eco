@@ -3,9 +3,10 @@ from model.base import BaseModel
 
 
 class User(BaseModel):
-    code = IntegerField()
+    code = CharField()
     tel = CharField()
     email = CharField()
     address = CharField()
     role = IntegerField()
+    password = CharField()
 

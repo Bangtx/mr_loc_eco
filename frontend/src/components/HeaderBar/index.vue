@@ -20,7 +20,7 @@
         div.pa-2
           v-icon(color="white" ) mdi-home
           span.white--text.hidden-sm-and-down.font-size-12 Trang Chủ
-        div.pa-2
+        div.pa-2(@click="openAccountDialog")
           v-icon(color="white" ) mdi-account
           span.white--text.hidden-sm-and-down.font-size-12 Tài Khoản
         div
@@ -47,17 +47,25 @@
               li.pa-2.white--text(v-for="categoryTop in categoriesTop" @click="gotoProductsPage(categoryTop)")
                 span.font-size-12 {{ categoryTop.name }}
 
+    account-dialog(
+      :show="isOpenAccountDialog"
+      @on-close="isOpenAccountDialog = false"
+    )
+
 </template>
 
 <script>
 import router from "@/router";
 import {getData, urlPath} from '@/utils'
+import {AccountDialog} from "@/components/Dialog";
 
 const HeaderBar = {
+  components: {AccountDialog},
   data() {
     return {
       isShowCategoryInMobile: false,
-      categoriesTop: []
+      categoriesTop: [],
+      isOpenAccountDialog: false
     }
   },
   methods: {
@@ -80,6 +88,9 @@ const HeaderBar = {
         this.$store.commit('updateCategories', data.categories)
       }
       this.categoriesTop = [{name: 'Trang chủ', id: 0}].concat(this.$store.state.categories.categories)
+    },
+    openAccountDialog() {
+      this.isOpenAccountDialog = true
     }
   },
   mounted() {

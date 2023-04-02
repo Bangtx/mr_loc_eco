@@ -44,7 +44,8 @@ create table image (
 create table "user" (
     id bigserial not null,
     name text,
-    code int,
+    code text,
+    password text,
     tel text,
     email text,
     address text,

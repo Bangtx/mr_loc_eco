@@ -3,9 +3,9 @@ from schema.base import BaseSchema
 
 class UserBase(BaseSchema):
     name: str
-    code: int
+    code: str
     tel: str
-    email: str = None
+    email: str
     role: int = 0
 
 
@@ -14,9 +14,14 @@ class User(UserBase):
 
 
 class UserCreate(UserBase):
-    pass
+    password: str
 
 
 class UserUpdate(UserBase):
     pass
+
+
+class UserLogin(BaseSchema):
+    code: str
+    password: str
 

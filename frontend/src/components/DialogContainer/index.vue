@@ -12,7 +12,7 @@
       transition="dialog-bottom-transition"
     )
       v-card(:height="isOnMobile ? '500px' : height")
-        v-card-title.primary
+        v-card-title(style="background-color: #f57e2e")
           v-btn(v-if="isBack" icon dark @click="close()")
             v-icon mdi-keyboard-backspace
           span.white--text {{label}}
@@ -55,7 +55,7 @@
                   :large="!$vuetify.breakpoint.xsOnly"
                   dark
                   block
-                  color="primary"
+                  color="#f57e2e"
                   :loading="loading"
                   @click="mode === 'create' ? create() : update()"
                 )
