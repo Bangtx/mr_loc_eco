@@ -1,5 +1,4 @@
 import os
-
 from fastapi import APIRouter, UploadFile, HTTPException
 from model.product import Product
 from model.image import Image
@@ -30,8 +29,8 @@ def create_product(product: schema.ProductCreate):
     product = product.dict()
     if product['images']:
         images = []
-        for img in product['images']:
-            new_img = Image.create(base64.b64decode(img['payload'].split(',').pop()))
+        for i_index, img in enumerate(product['images']):
+            new_img = Image.create(base64.b64decode(img['payload'].split(',').pop()), i_index)
             images.append(new_img.id)
         product['images'] = images
     return Product.create(**product)
@@ -42,9 +41,9 @@ def update_product(id: int, product: schema.ProductCreate):
     product = product.dict()
     if product['images']:
         images = []
-        for img in product['images']:
+        for i_index, img in enumerate(product['images']):
             if img['id']:
-                new_img = Image.create(base64.b64decode(img['payload'].split(',').pop()))
+                new_img = Image.create(base64.b64decode(img['payload'].split(',').pop()), i_index)
                 images.append(new_img.id)
         product['images'] = images
     return Product.update(**product).where(Product.id == id).execute()

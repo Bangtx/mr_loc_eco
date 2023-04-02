@@ -1,12 +1,6 @@
 from contextvars import ContextVar
-
+from config.get_env import POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_PASSWORD, POSTGRES_USER
 import peewee
-
-DB = 'default'
-HOST = 'db'
-USER = 'postgres'
-PASS = 'postgres'
-PORT = 5432
 
 db_state_default = {"closed": None, "conn": None, "ctx": None, "transactions": None}
 db_state = ContextVar("db_state", default=db_state_default.copy())
@@ -25,7 +19,11 @@ class PeeweeConnectionState(peewee._ConnectionState):
 
 
 db = peewee.PostgresqlDatabase(
-    DB, user=USER, password=PASS, host=HOST, port=PORT
+    POSTGRES_DB,
+    user=POSTGRES_USER,
+    password=POSTGRES_PASSWORD,
+    host=POSTGRES_HOST,
+    port=POSTGRES_PORT
 )
 
 db._state = PeeweeConnectionState()

@@ -27,7 +27,11 @@
         v-col(cols="10")
           .trademark.linear-color.pl-1
             v-list-item.pa-0
-              v-img.float-left.ma-2.justify-center(v-for="img in trademarkImgs" :src="img" width="110")
+              v-img.float-left.ma-2.justify-center(src="@/assets/toyota.png" width="110")
+              v-img.float-left.ma-2.justify-center(src="@/assets/huyndai.png" width="110")
+              v-img.float-left.ma-2.justify-center(src="@/assets/Kia.png" width="110")
+              v-img.float-left.ma-2.justify-center(src="@/assets/mazda.png" width="110")
+              v-img.float-left.ma-2.justify-center(src="@/assets/mec.png" width="110")
         //v-col(cols="10")
           v-carousel(hide-delimiters='' :hide-overflow='false' :per-page='5' :items-per-page='5' style='width: 500px;')
             v-carousel-item.carousel-item(v-for='(item, index) in items' :key='index')
@@ -36,7 +40,11 @@
       // mobile
       .trademark.linear-color.hidden-md-and-up.pl-1
         v-list-item.pa-0
-          v-img.float-left.ma-2.justify-center(v-for="img in trademarkImgs" :src="img" width="110")
+          v-img.float-left.ma-2.justify-center(src="@/assets/toyota.png" width="110")
+          v-img.float-left.ma-2.justify-center(src="@/assets/huyndai.png" width="110")
+          v-img.float-left.ma-2.justify-center(src="@/assets/Kia.png" width="110")
+          v-img.float-left.ma-2.justify-center(src="@/assets/mazda.png" width="110")
+          v-img.float-left.ma-2.justify-center(src="@/assets/mec.png" width="110")
 
       h2.color-main.mt-10 Danh sách sản phẩm nổi bật
       // pc
@@ -76,14 +84,6 @@ const Home = {
   },
   data() {
     return {
-      trademarkImgs: [
-        'https://salt.tikicdn.com/ts/tikimsp/f7/0f/06/c574c664067973c2b5afbfe7b864e2d9.png',
-        'https://salt.tikicdn.com/ts/tikimsp/fb/83/06/6135296fed61a3d0ef7a45b05a7ecb5f.jpeg',
-        'https://salt.tikicdn.com/ts/tikimsp/f8/cb/60/247452e0ee4730bdefdec4309902a2bd.png',
-        'https://salt.tikicdn.com/ts/tikimsp/7b/9a/6d/a7cf114f6fb4e4cdba27a18403a9a843.png',
-        'https://salt.tikicdn.com/ts/tikimsp/9c/24/71/1a2bb79efb4b8ea42b0a183f2d52605f.jpeg',
-        'https://salt.tikicdn.com/ts/tikimsp/fe/99/70/e0406e278536a5382c1f8ed44d4c2118.png'
-      ],
       outstandCategory: [
         { text: 'Giá Tốt Mỗi Ngày', logo: {url: 'https://salt.tikicdn.com/cache/100x100/ts/upload/3c/ce/96/db8c083610e45b78d8f7662f0013faa8.png.webp' }},
         { text: 'Mã Giảm Giá', logo: {url: 'https://salt.tikicdn.com/cache/100x100/ts/upload/20/68/cf/6d4adbdbcd1c35b0a438a655d9a420d0.png.webp' }},

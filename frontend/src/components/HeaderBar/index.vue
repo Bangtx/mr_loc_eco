@@ -79,7 +79,7 @@ const HeaderBar = {
         const data = await getData(['category'])
         this.$store.commit('updateCategories', data.categories)
       }
-      this.categoriesTop = [{name: 'Trang chủ', id: 0}].concat(this.$store.state.categories.categories.filter(cate => cate.logo.url === null))
+      this.categoriesTop = [{name: 'Trang chủ', id: 0}].concat(this.$store.state.categories.categories)
     }
   },
   mounted() {
