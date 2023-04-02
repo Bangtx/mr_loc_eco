@@ -12,16 +12,16 @@
         :src="image.url"
         disable-ssl
       )
-        //template(v-slot:placeholder)
-        //  v-row(
-        //    class="fill-height ma-0"
-        //    align="center"
-        //    justify="center"
-        //  )
-            //v-progress-circular(
-            //  indeterminate
-            //  color="grey lighten-5"
-            //)
+        template(v-slot:placeholder)
+          v-row(
+            class="fill-height ma-0"
+            align="center"
+            justify="center"
+          )
+            v-progress-circular(
+              indeterminate
+              color="grey lighten-5"
+            )
         div.image-delete-label(v-if="!readonly" @click="removeImage(image)")
           span.white--text.caption remove image
 
@@ -155,6 +155,7 @@ export default ImageList
   width: 100%
   background-color: red
   opacity: 0.5
+  cursor: pointer
 
 .add-new-image
   border-radius: 8px

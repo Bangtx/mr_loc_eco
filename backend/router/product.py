@@ -43,6 +43,8 @@ def update_product(id: int, product: schema.ProductCreate):
         images = []
         for i_index, img in enumerate(product['images']):
             if img['id']:
+                images.append(img['id'])
+            else:
                 new_img = Image.create(base64.b64decode(img['payload'].split(',').pop()), i_index)
                 images.append(new_img.id)
         product['images'] = images

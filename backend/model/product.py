@@ -44,7 +44,7 @@ class Product(BaseModel):
                 ).alias('images')
             ).join(
                 Category, on=Category.id == cls.category
-            ).join(
+            ).left_outer_join(
                 Image, on=Image.id == fn.any(cls.images)
             ).group_by(
                 cls.id, Category.id

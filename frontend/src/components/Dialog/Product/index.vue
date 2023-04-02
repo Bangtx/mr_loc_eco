@@ -14,7 +14,7 @@
         v-row.pt-1
             v-col.pa-1.px-1
                 image-list(
-                    :images="masterData.logo"
+                    :images="masterData.images"
                     @on-change="(input) => {pictures = input}"
                     @on-remove="removeImage"
                 )
@@ -82,7 +82,7 @@
 import {defineComponent, getCurrentInstance, toRefs, watch, ref} from 'vue'
 import DialogContainer from '../../DialogContainer/index.vue'
 import ImageList from "@/components/ImageList/index.vue";
-import {createData, updateData} from "@/utils";
+import {createData, updateData, deleteData} from "@/utils";
 import { VueEditor } from "vue2-editor";
 // import { api } from '@/plugins'
 // import { endpoints, showError } from '@/utils'
@@ -142,26 +142,20 @@ const ProductDialog = defineComponent({
             })
         }
 
-        const removeImage = (image) => {
-            // const {url} = image
-            // listImage.value = listImage.value.filter((i) => i.url !== url)
-            // emit('on-change', listImage.value)
-            // if (image.id) {
-            //     emit('on-remove', image.id)
-            // }
+        const removeImage = async (image) => {
+            await deleteData('/image/', image)
         }
 
         const generateBody = () => {
             return {
                 ...masterData.value,
-                images: pictures.value
+                images: [... new Set((masterData.value.images || []).concat(pictures.value))]
             }
         }
 
         const createItem = async () => {
             convertData()
             const body = generateBody()
-
             await createData('/product/', body)
             emit('on-close')
             emit('reload')
@@ -171,9 +165,9 @@ const ProductDialog = defineComponent({
         const updateItem = async () => {
             convertData()
             const body = generateBody()
-            // await updateData('/product/', body.id, body)
-            // emit('on-close')
-            // emit('reload')
+            await updateData('/product/', body.id, body)
+            emit('on-close')
+            emit('reload')
         }
 
         const onKeyDown = (event) => {
@@ -194,7 +188,7 @@ const ProductDialog = defineComponent({
                 }
                 masterData.value = props.isAdd
                     ? JSON.parse(JSON.stringify(initProduct))
-                    : JSON.parse(JSON.stringify({...itemData.value, logo: [itemData.value.logo]}))
+                    : JSON.parse(JSON.stringify({...itemData.value, category: itemData.value.category.id}))
                 // console.log(props.isAdd, masterData.value)
             }
         }

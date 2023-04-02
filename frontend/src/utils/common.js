@@ -51,6 +51,16 @@ export const updateData = async (endpoint, id, data) => {
 }
 
 
+export const deleteData = async (endpoint, id) => {
+    try {
+        await api.delete(`${endpoint}${id}`)
+        Vue.$toast.success('delete successful')
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+
 export const readFile = (file) => {
   return new Promise((resolve) => {
     const reader = new FileReader()

@@ -46,11 +46,15 @@
             v-btn(color="#f57e2e" :disabled="product.quantity === 0").white--text.align-left.mt-2 Mua Hàng Ngay
             v-btn.align-left.mt-2.ml-2(:disabled="product.quantity === 0")
               span.main-color Thêm Vào Giỏ Hàng
+      v-col(cols="12")
+        h3.main-color Mô Tả Sản Phẩm
+        div.align-left.pa-2(v-html="product.description")
 
 </template>
 
 <script>
 import FastInputQuantity from '../FastInputQuantity/index.vue'
+import {arrayMoveImmutable} from 'array-move'
 
 const ProductDetail = {
   props: ['screenType', 'product'],

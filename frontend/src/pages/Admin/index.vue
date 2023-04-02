@@ -63,7 +63,6 @@ const Admin = defineComponent({
     components: {CategoryDialog, ProductDialog},
     setup() {
         const instance = getCurrentInstance().proxy
-        const {$store} = instance
         const categories = ref([])
         const products = ref([])
         const show = ref({category: false, product: false})
