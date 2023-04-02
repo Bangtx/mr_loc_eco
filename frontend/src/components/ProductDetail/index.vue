@@ -54,7 +54,6 @@
 
 <script>
 import FastInputQuantity from '../FastInputQuantity/index.vue'
-import {arrayMoveImmutable} from 'array-move'
 
 const ProductDetail = {
   props: ['screenType', 'product'],
