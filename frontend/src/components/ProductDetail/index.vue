@@ -1,7 +1,8 @@
 <template lang="pug">
   div
     v-row
-      v-col(:cols="screenType === 'pc' ? 4 : (screenType === 'tab' ? 5 : 12)")
+      //v-col(:cols="screenType === 'pc' ? 4 : (screenType === 'tab' ? 5 : 12)")
+      v-col(cols="12" sm="5" md="4")
         .pa-4
           v-row
             v-col(cols="12")
@@ -9,13 +10,7 @@
           v-row
             v-col(cols="3" v-for="img in product.images" :key="img.url" @click="mainImage = img")
               v-img(:src="img.url")
-            //v-col(cols="3")
-            //  v-img(src="https://salt.tikicdn.com/cache/100x100/ts/product/89/3e/19/ad4dab5a03110603cba836c3853b2ae1.jpg.webp")
-            //v-col(cols="3")
-            //  v-img(src="https://salt.tikicdn.com/cache/100x100/media/catalog/producttmp/27/ce/66/efc719247e9dfe784acee4004e80f9ed.jpg.webp")
-            //v-col(cols="3")
-            //  v-img(src="https://salt.tikicdn.com/cache/100x100/ts/product/31/eb/8d/2ae1397fa0ee2365f86a7e9df1dce005.jpg.webp")
-      v-col(:cols="screenType === 'pc' ? 8 : (screenType === 'tab' ? 7 : 12)")
+      v-col(cols="12" sm="7" md="8")
         .pa-4
           p.align-left Thương hiệu: {{ product.trademark }}
           h1.align-left {{ product.name }}
