@@ -20,9 +20,13 @@
         div.pa-2
           v-icon(color="white" ) mdi-home
           span.white--text.hidden-sm-and-down.font-size-12 Trang Chủ
-        div.pa-2(@click="openAccountDialog")
-          v-icon(color="white" ) mdi-account
-          span.white--text.hidden-sm-and-down.font-size-12 {{user ? user.name : 'Tài Khoản '}}
+        v-menu(transition='slide-x-transition' bottom='' right='')
+          template(v-slot:activator='{ on, attrs }')
+            div(v-bind='attrs' v-on='on' @click="openAccountDialog")
+              v-icon(color="white") mdi-account
+              span.white--text.hidden-sm-and-down.font-size-12 {{user ? user.name : 'Tài Khoản '}}
+          v-list(v-if="user !== null")
+            v-list-item.cursor(@click="onLogout") Đăng xuất
         div
           v-btn(icon)
             v-icon(color="white" ) mdi-cart-outline
@@ -48,6 +52,7 @@
                 span.font-size-12 {{ categoryTop.name }}
 
     account-dialog(
+      ref="accountDialog"
       :show="isOpenAccountDialog"
       @on-close="isOpenAccountDialog = false"
       @update-user="updateUser"
@@ -97,6 +102,10 @@ const HeaderBar = {
     },
     updateUser() {
       this.user = JSON.parse(localStorage.getItem('user'))
+    },
+    onLogout() {
+      this.user = null
+      localStorage.removeItem('user')
     }
   },
   mounted() {
@@ -131,4 +140,6 @@ ul li:hover
   height: 40px
 .font-size-12
   font-size: 13px
+.cursor
+  cursor: pointer
 </style>

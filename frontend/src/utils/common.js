@@ -24,20 +24,20 @@ export const getData = async (listData = [], query = {}) => {
             listData.includes('product') ? api.get(`/product?${queryProduct}`).then(({data}) => result.products = data) : null
         ])
     } catch (e) {
-        console.log(e)
+        this.$toast.error('get data failed')
     }
 
     return result
 }
 
 
-export const createData = async (endpoint, payload) => {
+export const createData = async (endpoint, payload, showMsg= true) => {
     try {
         const {data} = await api.post(endpoint, payload)
-        Vue.$toast.success('create successful')
+        if (showMsg) Vue.$toast.success('create successful')
         return data
     } catch (e) {
-        console.log(e)
+        this.$toast.error('create failed')
     }
     return null
 }
@@ -48,7 +48,7 @@ export const updateData = async (endpoint, id, data) => {
         await api.put(`${endpoint}${id}`, data)
         Vue.$toast.success('update successful')
     } catch (e) {
-        console.log(e)
+        this.$toast.error('update failed')
     }
 }
 

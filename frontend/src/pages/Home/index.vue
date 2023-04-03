@@ -108,7 +108,7 @@ const Home = {
       this.categories = this.categories.filter(cate => cate.logo !== null).map(cate => {
         return {...cate, icon: cate.logo, text: cate.name}
       })
-        console.log(this.categories )
+
       this.products = data.products
     }
   },

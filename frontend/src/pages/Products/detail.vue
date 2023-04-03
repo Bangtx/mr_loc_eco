@@ -1,6 +1,6 @@
 <template lang="pug" xmlns="">
   div
-    header-bar
+    header-bar(ref="headerBar")
     .max-width.center
       product-detail.max-width.center.pt-10
       v-divider.mt-5
@@ -29,6 +29,11 @@ const Detail = {
   data() {
     return {
       newestProducts: []
+    }
+  },
+  provide() {
+    return {
+      'detailPage': this
     }
   },
   methods: {

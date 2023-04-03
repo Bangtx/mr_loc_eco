@@ -39,11 +39,17 @@
           div(style="clear:both;")
           v-list-item.pa-0
             v-btn(color="#f57e2e" :disabled="product.quantity === 0").white--text.align-left.mt-2 Mua Hàng Ngay
-            v-btn.align-left.mt-2.ml-2(:disabled="product.quantity === 0")
+            v-btn.align-left.mt-2.ml-2(:disabled="product.quantity === 0" @click="onAddToCart")
               span.main-color Thêm Vào Giỏ Hàng
       v-col(cols="12")
         h3.main-color Mô Tả Sản Phẩm
         div.align-left.pa-2(v-html="product.description")
+
+    confirm-dialog(
+      :show="isOpenConfirmDialog"
+      label="Bạn chưa đăng nhập, đăng nhập để đặt hàng ngay, Bạn đã có tài khoản chưa?"
+      @on-close="isOpenConfirmDialog = false"
+    )
 
 </template>
 
@@ -51,16 +57,20 @@
 import FastInputQuantity from '../FastInputQuantity/index.vue'
 import api from "../../plugins/api";
 import router from "@/router";
+import {ConfirmDialog} from '@/components/Dialog'
+import {createData} from "@/utils";
 
 const ProductDetail = {
   props: ['screenType'],
   components: {
-    FastInputQuantity
+    FastInputQuantity, ConfirmDialog
   },
   data() {
     return {
       product: {images: [{url: null}]},
-      mainImage: null
+      mainImage: null,
+      user: localStorage.getItem('user'),
+      isOpenConfirmDialog: false
     }
   },
   mounted() {
@@ -81,6 +91,20 @@ const ProductDetail = {
         console.log(e)
       }
     },
+    async onAddToCart() {
+      // this.detailPage.$refs.headerBar.openAccountDialog()
+      if (this.user === null) {
+          this.isOpenConfirmDialog = true
+          return
+      }
+      const body = {
+        user: this.user.id,
+        product: this.product.id,
+        quantity: this.product.quantity,
+        status: "not_order"
+      }
+      // await createData('/cart/', body)
+    }
   }
 }
 
