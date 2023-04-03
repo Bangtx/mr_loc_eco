@@ -52,12 +52,12 @@
         v-col(cols="2")
         v-col(cols="10")
           .list-product
-            sub-product.pa-2(v-for="prd in products" :product="prd")
+            sub-product.sub-product.pa-2(v-for="prd in products" :product="prd")
       // mobile
-      v-row.hidden-md-and-up.hidden-sm-only
-        v-col(cols=6 v-for="prd in products" style="float: left")
-          v-list-item.pa-0
-            sub-product(:product="prd")
+      v-row.hidden-md-and-up.hidden-sm-only(style="width: 98%; margin-left: 1%")
+        v-col.pa-0(cols=6 v-for="prd in products")
+          //v-list-item
+          sub-product(:product="prd")
       //div(v-for="prd in products" style="float: left")
       //  v-list-item.pa-0
       //    sub-product(:product="prd")

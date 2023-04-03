@@ -1,6 +1,6 @@
 <template lang="pug">
-  .max-width-product-compoment.float-left(@click="onClick()")
-    v-img.max-width-product-compoment(:src="product.images[0].url")
+  .content.max-width-product-component.float-left(@click="onClick()")
+    v-img.max-width-product-component(:src="product.images[0].url")
     .product-name.align-left
       span {{ product.name }}
     .product-review.align-left
@@ -36,7 +36,7 @@ export default SubProduct
 </script>
 
 <style scoped lang="sass">
-.max-width-product-compoment
+.max-width-product-component
   max-width: 200px
   //height: 300px
   //background-color: #f57e2e
@@ -55,4 +55,14 @@ export default SubProduct
   color: gray
 .float-left
   float: left
+.product-name
+  height: 5em
+  overflow: hidden
+  //text-overflow: ellipsis
+  //white-space: nowrap
+  //word-wrap: break-word
+.content:hover
+  //display: block
+  border: 2px solid #f57e2e
+  transform: scale(1.05)
 </style>
