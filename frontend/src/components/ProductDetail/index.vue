@@ -69,7 +69,7 @@ const ProductDetail = {
     return {
       product: {images: [{url: null}]},
       mainImage: null,
-      user: localStorage.getItem('user'),
+      user: JSON.parse(localStorage.getItem('user')),
       isOpenConfirmDialog: false
     }
   },
@@ -93,6 +93,7 @@ const ProductDetail = {
     },
     async onAddToCart() {
       // this.detailPage.$refs.headerBar.openAccountDialog()
+      this.user = JSON.parse(localStorage.getItem('user'))
       if (this.user === null) {
           this.isOpenConfirmDialog = true
           return
@@ -103,7 +104,8 @@ const ProductDetail = {
         quantity: this.product.quantity,
         status: "not_order"
       }
-      // await createData('/cart/', body)
+      console.log(body)
+      await createData('/cart/', body)
     }
   }
 }

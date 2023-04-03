@@ -59,7 +59,7 @@ create table "cart" (
     user_id bigint,
     product_id bigint,
     quantity int,
-    status bool,
+    status text,
     active bool default true,
     constraint pkey_cart primary key (id)
 );
