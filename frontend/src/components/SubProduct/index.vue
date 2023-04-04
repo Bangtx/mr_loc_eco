@@ -37,7 +37,7 @@ export default SubProduct
 
 <style scoped lang="sass">
 .max-width-product-component
-  max-width: 200px
+  max-width: 160px
   //height: 300px
   //background-color: #f57e2e
 //@media only screen and (max-width 500px)

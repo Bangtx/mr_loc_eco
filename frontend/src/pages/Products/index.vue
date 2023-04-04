@@ -21,18 +21,32 @@
         v-col(cols="2")
           categories(title="Danh mục" :items="categories")
         v-col(cols="10")
-          .list-product
-            sub-product.pa-2(v-for="prd in products" :product="prd")
+          v-row
+            v-col(cols="2.5" v-for="prd in products")
+              v-spacer
+              sub-product(:product="prd")
+              v-spacer
+            //v-col(cols="6" sm="4" md="3" v-for="prd in products")
+              v-spacer
+              sub-product(:product="prd")
+              v-spacer
+
+            //.list-product
+            //sub-product.pa-2(v-for="prd in products" :product="prd")
       // mobile
-      v-row.hidden-md-and-up.hidden-sm-only
-        v-col(cols="6" v-for="prd in products")
+      v-row.hidden-md-and-up
+        v-col(cols="6" sm="4" v-for="prd in products")
           v-list-item.pa-0
+            v-spacer
             sub-product(:product="prd")
+            v-spacer
       // tab
-      v-row.hidden-md-and-up.hidden-xs-only
+      //v-row.hidden-md-and-up.hidden-xs-only
         v-col(cols="4" v-for="prd in products")
           v-list-item
+            v-spacer
             sub-product(:product="prd")
+            v-spacer
     footer-bar
 </template>
 

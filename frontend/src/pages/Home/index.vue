@@ -48,24 +48,29 @@
 
       h2.color-main.mt-10 Danh sách sản phẩm nổi bật
       // pc
-      v-row.hidden-sm-and-down
-        v-col(cols="2")
-        v-col(cols="10")
-          .list-product
-            sub-product.sub-product.pa-2(v-for="prd in products" :product="prd")
+      v-row
+        //v-col(cols="2")
+        //v-col(cols="10")
+        v-col(cols="6" sm="4" md="2" v-for="prd in products")
+          v-list-item.pa-0
+            v-spacer
+            sub-product(:product="prd")
+            v-spacer
       // mobile
-      v-row.hidden-md-and-up.hidden-sm-only(style="width: 98%; margin-left: 1%")
-        v-col.pa-0(cols=6 v-for="prd in products")
-          //v-list-item
-          sub-product(:product="prd")
+      //v-row.hidden-md-and-up(style="width: 98%; margin-left: 1%")
+      //  v-col.pa-0(cols="6" sm="4" v-for="prd in products")
+      //    v-list-item.pa-0
+      //      v-spacer
+      //      sub-product(:product="prd")
+      //      v-spacer
       //div(v-for="prd in products" style="float: left")
       //  v-list-item.pa-0
       //    sub-product(:product="prd")
       // tab
-      v-row.hidden-md-and-up.hidden-xs-only
-        v-col(cols="4" v-for="prd in products")
-          v-list-item
-            sub-product.pa-1(:product="prd")
+      //v-row.hidden-md-and-up.hidden-xs-only
+      //  v-col(cols="4" v-for="prd in products")
+      //    v-list-item
+      //      sub-product.pa-1(:product="prd")
     footer-bar
 
 </template>
