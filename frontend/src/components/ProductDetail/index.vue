@@ -38,7 +38,7 @@
           // cancel float left
           div(style="clear:both;")
           v-list-item.pa-0
-            v-btn(color="#f57e2e" :disabled="product.quantity === 0").white--text.align-left.mt-2 Mua Hàng Ngay
+            v-btn(color="#f57e2e" :disabled="product.quantity === 0" @click="onAddToOrder").white--text.align-left.mt-2 Mua Hàng Ngay
             v-btn.align-left.mt-2.ml-2(:disabled="product.quantity === 0" @click="onAddToCart")
               span.main-color Thêm Vào Giỏ Hàng
       v-col(cols="12")
@@ -104,8 +104,21 @@ const ProductDetail = {
         quantity: this.product.quantity,
         status: "not_order"
       }
-      console.log(body)
       await createData('/cart/', body)
+    },
+    async onAddToOrder() {
+      this.user = JSON.parse(localStorage.getItem('user'))
+      if (this.user === null) {
+          this.isOpenConfirmDialog = true
+          return
+      }
+      const body = {
+        user: this.user.id,
+        product: this.product.id,
+        quantity: this.product.quantity,
+        status: "confirm"
+      }
+      await createData('/order/', body)
     }
   }
 }
