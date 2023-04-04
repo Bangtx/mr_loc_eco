@@ -43,7 +43,7 @@ export const createData = async (endpoint, payload, showMsg= true) => {
         if (showMsg) Vue.$toast.success('create successful')
         return data
     } catch (e) {
-        this.$toast.error('create failed')
+        Vue.$toast.error('create failed')
     }
     return null
 }

@@ -17,6 +17,7 @@ class BaseModel(Model):
         for key, value in kwargs.items():
             query = query.where(attrgetter(key)(cls) == value)
 
+        query = query.where(cls.active)
         if get_dict:
             query = query.dicts()
 
@@ -26,3 +27,8 @@ class BaseModel(Model):
     @classmethod
     def handle_select(cls):
         return cls.select().where(cls.active)
+
+    @classmethod
+    def soft_delete(cls, id):
+        return cls.update(active=False).where(cls.id == id).execute()
+

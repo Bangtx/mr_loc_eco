@@ -16,3 +16,9 @@ def get_cart(user: int):
 @transaction
 def create_cart(cart: CartCreate):
     return CartModel.create(**cart.dict())
+
+
+@router.delete('/{id}')
+@transaction
+def delete_cart(id: int):
+    return CartModel.soft_delete(id)

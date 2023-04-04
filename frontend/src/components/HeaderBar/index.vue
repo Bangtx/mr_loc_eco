@@ -56,7 +56,7 @@
       ref="accountDialog"
       :show="isOpenAccountDialog"
       @on-close="isOpenAccountDialog = false"
-      @update-cart="getCartAndOrder"
+      @update-cart-order="getCartAndOrder"
       @update-user="updateUser"
     )
 
@@ -64,6 +64,7 @@
       :show="isOpenCartDialog"
       :carts="carts"
       :orders="orders"
+      @update-cart-order="getCartAndOrder"
       @on-close="isOpenCartDialog = false"
     )
 </template>
@@ -113,7 +114,7 @@ const HeaderBar = {
           ['cart', 'order'], {cart: {user: this.user.id}, order: {user: this.user.id}}
         )
         this.carts = data.cart
-        this.orders = data.orders
+        this.orders = data.order
       } else {
         this.carts = []
         this.orders = []
