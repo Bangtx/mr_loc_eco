@@ -14,17 +14,20 @@ const objectToString = (object) => {
 export const getData = async (listData = [], query = {}) => {
     const result = {
         categories: null,
-        products: null
+        products: null,
+        cart: null,
     }
     const queryProduct = query?.product ? objectToString(query.product) : ''
+    const queryCart = query?.cart ? objectToString(query.cart) : ''
 
     try {
         await Promise.all([
             listData.includes('category') ? api.get('/category/').then(({data}) => result.categories = data) : null,
-            listData.includes('product') ? api.get(`/product?${queryProduct}`).then(({data}) => result.products = data) : null
+            listData.includes('product') ? api.get(`/product?${queryProduct}`).then(({data}) => result.products = data) : null,
+            listData.includes('cart') ? api.get(`/cart?${queryCart}`).then(({data}) => result.cart = data) : null
         ])
     } catch (e) {
-        this.$toast.error('get data failed')
+        Vue.$toast.error('get data failed')
     }
 
     return result

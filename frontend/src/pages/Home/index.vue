@@ -66,11 +66,12 @@
         v-col(cols="4" v-for="prd in products")
           v-list-item
             sub-product.pa-1(:product="prd")
+    footer-bar
 
 </template>
 
 <script>
-import {HeaderBar, Categories, Carousel, SubProduct, MobileCategories} from '@/components'
+import {HeaderBar, Categories, Carousel, SubProduct, MobileCategories, FooterBar} from '@/components'
 import api from '@/plugins/api'
 import {getData} from '@/utils'
 
@@ -80,7 +81,8 @@ const Home = {
     Categories,
     Carousel,
     SubProduct,
-    MobileCategories
+    MobileCategories,
+    FooterBar
   },
   data() {
     return {

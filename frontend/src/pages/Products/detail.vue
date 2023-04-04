@@ -12,19 +12,19 @@
           sub-product.pa-2(v-for="prd in newestProducts" :product="prd")
         v-btn.mt-10(icon @click="onScrollX('next')")
           v-icon(x-large) mdi-skip-next-circle-outline
-
+    footer-bar
 </template>
 
 <script>
-import {HeaderBar, ProductDetail, SubProduct} from '@/components'
-import router from "@/router";
-import api from "@/plugins/api"
+import {HeaderBar, ProductDetail, SubProduct, FooterBar} from '@/components'
 import {getData} from "@/utils";
+
 const Detail = {
   components: {
     HeaderBar,
     ProductDetail,
-    SubProduct
+    SubProduct,
+    FooterBar
   },
   data() {
     return {

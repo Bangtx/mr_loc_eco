@@ -27,9 +27,10 @@
               span.white--text.hidden-sm-and-down.font-size-12 {{user ? user.name : 'Tài Khoản '}}
           v-list(v-if="user !== null")
             v-list-item.cursor(@click="onLogout") Đăng xuất
-        div
+        .ml-3
           v-btn(icon)
             v-icon(color="white" ) mdi-cart-outline
+            span.white--text.cart-quantity {{ carts.length }}
         div.hidden-md-and-up
           v-btn(icon @click="onShowCategory()")
             v-icon(color="white" ) mdi-menu
@@ -72,7 +73,8 @@ const HeaderBar = {
       isShowCategoryInMobile: false,
       categoriesTop: [],
       isOpenAccountDialog: false,
-      user: JSON.parse(localStorage.getItem('user'))
+      user: JSON.parse(localStorage.getItem('user')),
+      carts: []
     }
   },
   methods: {
@@ -96,6 +98,9 @@ const HeaderBar = {
       }
       this.categoriesTop = [{name: 'Trang chủ', id: 0}].concat(this.$store.state.categories.categories)
     },
+    async getCarts() {
+      this.carts = this.user !== null ? (await getData(['cart'], {cart: {user: this.user.id}})).cart : []
+    },
     openAccountDialog() {
       if (this.user) return
       this.isOpenAccountDialog = true
@@ -110,6 +115,7 @@ const HeaderBar = {
   },
   mounted() {
     this.getCategory()
+    this.getCarts()
   }
 }
 

@@ -33,10 +33,11 @@
         v-col(cols="4" v-for="prd in products")
           v-list-item
             sub-product(:product="prd")
+    footer-bar
 </template>
 
 <script>
-import {HeaderBar, Carousel, Categories, SubProduct, MobileCategories} from "@/components";
+import {HeaderBar, Carousel, Categories, SubProduct, MobileCategories, FooterBar} from "@/components";
 import {getData} from "@/utils";
 import router from "@/router";
 
@@ -46,7 +47,8 @@ const Products = {
     Carousel,
     Categories,
     SubProduct,
-    MobileCategories
+    MobileCategories,
+    FooterBar
   },
   data() {
     return {
