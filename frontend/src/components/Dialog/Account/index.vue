@@ -89,6 +89,7 @@ const AccountDialog = defineComponent({
                 localStorage.setItem('user', JSON.stringify(data.data))
                 emit('on-close')
                 emit('update-user')
+                emit('update-cart')
             }
         }
 

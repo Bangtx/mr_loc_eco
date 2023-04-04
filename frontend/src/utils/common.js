@@ -16,15 +16,18 @@ export const getData = async (listData = [], query = {}) => {
         categories: null,
         products: null,
         cart: null,
+        order: null
     }
     const queryProduct = query?.product ? objectToString(query.product) : ''
     const queryCart = query?.cart ? objectToString(query.cart) : ''
+    const queryOrder = query?.order ? objectToString(query.order) : ''
 
     try {
         await Promise.all([
             listData.includes('category') ? api.get('/category/').then(({data}) => result.categories = data) : null,
-            listData.includes('product') ? api.get(`/product?${queryProduct}`).then(({data}) => result.products = data) : null,
-            listData.includes('cart') ? api.get(`/cart?${queryCart}`).then(({data}) => result.cart = data) : null
+            listData.includes('product') ? api.get(`/product/?${queryProduct}`).then(({data}) => result.products = data) : null,
+            listData.includes('cart') ? api.get(`/cart/?${queryCart}`).then(({data}) => result.cart = data) : null,
+            listData.includes('order') ? api.get(`/order/?${queryOrder}`).then(({data}) => result.order = data) : null
         ])
     } catch (e) {
         Vue.$toast.error('get data failed')

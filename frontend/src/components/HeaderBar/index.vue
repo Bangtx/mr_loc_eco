@@ -28,7 +28,7 @@
           v-list(v-if="user !== null")
             v-list-item.cursor(@click="onLogout") Đăng xuất
         .ml-3
-          v-btn(icon)
+          v-btn(icon @click="openCartDialog")
             v-icon(color="white" ) mdi-cart-outline
             span.white--text.cart-quantity {{ carts.length }}
         div.hidden-md-and-up
@@ -56,25 +56,34 @@
       ref="accountDialog"
       :show="isOpenAccountDialog"
       @on-close="isOpenAccountDialog = false"
+      @update-cart="getCartAndOrder"
       @update-user="updateUser"
     )
 
+    cart-and-order-dialog(
+      :show="isOpenCartDialog"
+      :carts="carts"
+      :orders="orders"
+      @on-close="isOpenCartDialog = false"
+    )
 </template>
 
 <script>
 import router from "@/router";
 import {getData, urlPath} from '@/utils'
-import {AccountDialog} from "@/components/Dialog";
+import {AccountDialog, CartAndOrderDialog} from "@/components/Dialog";
 
 const HeaderBar = {
-  components: {AccountDialog},
+  components: {AccountDialog, CartAndOrderDialog},
   data() {
     return {
       isShowCategoryInMobile: false,
       categoriesTop: [],
       isOpenAccountDialog: false,
       user: JSON.parse(localStorage.getItem('user')),
-      carts: []
+      carts: [],
+      orders: [],
+      isOpenCartDialog: false
     }
   },
   methods: {
@@ -98,24 +107,41 @@ const HeaderBar = {
       }
       this.categoriesTop = [{name: 'Trang chủ', id: 0}].concat(this.$store.state.categories.categories)
     },
-    async getCarts() {
-      this.carts = this.user !== null ? (await getData(['cart'], {cart: {user: this.user.id}})).cart : []
+    async getCartAndOrder() {
+      if (this.user) {
+        const data = await getData(
+          ['cart', 'order'], {cart: {user: this.user.id}, order: {user: this.user.id}}
+        )
+        this.carts = data.cart
+        this.orders = data.orders
+      } else {
+        this.carts = []
+        this.orders = []
+      }
     },
     openAccountDialog() {
       if (this.user) return
       this.isOpenAccountDialog = true
+    },
+    openCartDialog() {
+      if (this.carts.length === 0) {
+        this.$toast.error('Giỏ hàng trống')
+        return
+      }
+      this.isOpenCartDialog = true
     },
     updateUser() {
       this.user = JSON.parse(localStorage.getItem('user'))
     },
     onLogout() {
       this.user = null
+      this.carts = []
       localStorage.removeItem('user')
     }
   },
   mounted() {
     this.getCategory()
-    this.getCarts()
+    this.getCartAndOrder()
   }
 }
 

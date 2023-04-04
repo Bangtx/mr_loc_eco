@@ -52,6 +52,8 @@ class Purchase(BaseModel):
             User, on=User.id == cls.user
         ).join(
             products, JOIN.LEFT_OUTER, on=products.c.id == cls.product
+        ).order_by(
+            cls.id.desc()
         )
 
         return query
