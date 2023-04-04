@@ -15,7 +15,8 @@ class BaseModel(Model):
         query = cls.handle_select()
 
         for key, value in kwargs.items():
-            query = query.where(attrgetter(key)(cls) == value)
+            if value:
+                query = query.where(attrgetter(key)(cls) == value)
 
         query = query.where(cls.active)
         if get_dict:

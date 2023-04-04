@@ -4,13 +4,16 @@
     v-list(dense='')
       v-subheader {{ title }}
       v-list-item-group(v-model='selectedItem' color='#f57e2e')
-        v-list-item(v-for='(item, i) in items' :key='i')
+        v-list-item(v-for='(item, i) in items' :key='i' @click="gotoProductsPage(item)")
           v-img(:src='item.logo.url' max-width="25" )
           span.pl-2.font-size-12 {{ item.text }}
 
 </template>
 
 <script>
+import router from "@/router";
+import {urlPath} from '@/utils'
+
 const Categories = {
   props: {
     title: {default: ''},
@@ -19,6 +22,16 @@ const Categories = {
   },
   data() {
     return {}
+  },
+  methods: {
+    gotoProductsPage(catName) {
+      router.push({
+        name: urlPath.Products.name,
+        params: {categoryName: catName.name}
+      }).catch((e) => {
+        return
+      })
+    }
   }
 }
 

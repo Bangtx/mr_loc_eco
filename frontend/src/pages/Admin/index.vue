@@ -30,6 +30,40 @@
                 v-icon(small='')
                     | mdi-delete
 
+        h1.center.main-color Đơn Hàng
+        v-data-table(
+            :headers="HeaderOrder" class="elevation-1" :items="orders"
+        )
+            template(v-slot:item.name="{item}")
+                span {{item.product.name}}
+            template(v-slot:item.image="{item}")
+                v-img(:src="item.product.images[0].url" max-width="80" )
+            template(v-slot:item.price="{item}")
+                span {{item.product.price}}
+            template(v-slot:item.user="{item}")
+                span {{item.user.name}}
+            template(v-slot:item.tel="{item}")
+                span {{item.user.tel}}
+            template(v-slot:item.email="{item}")
+                span {{item.user.email}}
+
+        h1.center.main-color Giỏ Hàng
+        v-data-table(
+            :headers="HeaderOrder" class="elevation-1" :items="carts"
+        )
+            template(v-slot:item.name="{item}")
+                span {{item.product.name}}
+            template(v-slot:item.image="{item}")
+                v-img(:src="item.product.images[0].url" max-width="80" )
+            template(v-slot:item.price="{item}")
+                span {{item.product.price}}
+            template(v-slot:item.user="{item}")
+                span {{item.user.name}}
+            template(v-slot:item.tel="{item}")
+                span {{item.user.tel}}
+            template(v-slot:item.email="{item}")
+                span {{item.user.email}}
+
         category-dialog(
             ref="category_dialog"
             :show="show.category"
@@ -56,7 +90,7 @@
 <script>
 import {defineComponent, onMounted, ref, getCurrentInstance} from 'vue'
 import {CategoryDialog, ProductDialog} from '@/components/Dialog'
-import {HeaderCategory, HeaderProducts} from './index.js'
+import {HeaderCategory, HeaderProducts, HeaderCart, HeaderOrder} from './index.js'
 import {getData} from "@/utils";
 
 const Admin = defineComponent({
@@ -65,6 +99,8 @@ const Admin = defineComponent({
         const instance = getCurrentInstance().proxy
         const categories = ref([])
         const products = ref([])
+        const carts = ref([])
+        const orders = ref([])
         const show = ref({category: false, product: false})
         const itemData = ref({category: {}, product: {}})
         const isAdd = ref({category: false, product: false})
@@ -76,9 +112,11 @@ const Admin = defineComponent({
         }
 
         const init = async () => {
-            const data = await getData(['category', 'product'])
+            const data = await getData(['category', 'product', 'order', 'cart'])
             categories.value = data.categories
             products.value = data.products
+            carts.value = data.cart
+            orders.value = data.order
         }
 
         const reload = async () => {
@@ -87,6 +125,8 @@ const Admin = defineComponent({
 
         onMounted(init)
         return {
+            HeaderOrder,
+            HeaderCart,
             HeaderCategory,
             categories,
             products,
@@ -95,7 +135,9 @@ const Admin = defineComponent({
             show,
             itemData,
             isAdd,
-            reload
+            reload,
+            carts,
+            orders
         }
     }
 })

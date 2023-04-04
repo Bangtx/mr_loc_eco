@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.get('/')
-def get_order(user: int):
+def get_order(user: int = None):
     return OrderModel.get_list(user=user)
 
 

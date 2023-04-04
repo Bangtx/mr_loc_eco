@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.get('/')
-def get_cart(user: int):
+def get_cart(user: int = None):
     return CartModel.get_list(user=user)
 
 

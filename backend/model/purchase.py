@@ -37,7 +37,7 @@ class Purchase(BaseModel):
         query = cls.select(
             cls.id,
             fn.json_build_object(
-                'id', User.id, 'name', User.name
+                'id', User.id, 'name', User.name, 'tel', User.tel, 'email', User.email
             ).alias('user'),
             cls.quantity,
             cls.status,
