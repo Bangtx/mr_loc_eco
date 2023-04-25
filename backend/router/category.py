@@ -22,7 +22,7 @@ def create_category(category: schema.CategoryCreate):
     if category['logo']['payload']:
         img = Image.create(b64decode(category['logo']['payload'].split(',').pop()))
         category['image'] = img.id
-
+    category.pop('logo', None)
     return Category.create(**category)
 
 
@@ -33,6 +33,5 @@ def update_category(id: int, category: schema.CategoryCreate):
     if category['logo']['payload']:
         img = Image.create(b64decode(category['logo']['payload'].split(',').pop()))
         category['image'] = img.id
-        category.pop('logo', None)
-
+    category.pop('logo', None)
     return Category.update(**category).where(Category.id == id).execute()
