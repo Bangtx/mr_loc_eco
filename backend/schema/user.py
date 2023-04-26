@@ -7,6 +7,7 @@ class UserBase(BaseSchema):
     tel: str
     email: str
     role: int = 0
+    address: str = None
 
 
 class User(UserBase):

@@ -12,8 +12,9 @@ def get_user():
     return UserModel.get_list()
 
 
-@router.post('/', response_model=User)
+@router.post('/')
 def create_user(user: UserCreate):
+    print(user.dict())
     return UserModel.create(**user.dict())
 
 
