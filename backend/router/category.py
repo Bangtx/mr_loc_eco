@@ -35,3 +35,9 @@ def update_category(id: int, category: schema.CategoryCreate):
         category['image'] = img.id
     category.pop('logo', None)
     return Category.update(**category).where(Category.id == id).execute()
+
+
+@router.delete('/{id}')
+@transaction
+def delete_category(id: int):
+    return Category.delete_by_id(id)

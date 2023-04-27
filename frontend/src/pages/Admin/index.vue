@@ -11,7 +11,7 @@
                     span.main-color Them Danh Muc
             template(v-slot:item.actions='{ item }')
                 v-icon.mr-2(small='' @click="openDialog('category', item)") mdi-pencil
-                v-icon(small='') mdi-delete
+                v-icon(small='' @click="onDelete('category', item)") mdi-delete
 
         h1.center.main-color San Pham
         v-data-table(
@@ -27,7 +27,7 @@
             template(v-slot:item.actions='{ item }')
                 v-icon.mr-2(small='' @click="openDialog('product', item)")
                     | mdi-pencil
-                v-icon(small='')
+                v-icon(small='', @click="onDelete('product', item)")
                     | mdi-delete
 
         h1.center.main-color Đơn Hàng
@@ -91,7 +91,7 @@
 import {defineComponent, onMounted, ref, getCurrentInstance} from 'vue'
 import {CategoryDialog, ProductDialog} from '@/components/Dialog'
 import {HeaderCategory, HeaderProducts, HeaderCart, HeaderOrder} from './index.js'
-import {getData} from "@/utils";
+import {getData, deleteData} from "@/utils";
 
 const Admin = defineComponent({
     components: {CategoryDialog, ProductDialog},
@@ -123,6 +123,11 @@ const Admin = defineComponent({
             init()
         }
 
+        const onDelete = async (endPoint, item) => {
+            await deleteData(`${endPoint}/`, item.id)
+            await reload()
+        }
+
         onMounted(init)
         return {
             HeaderOrder,
@@ -137,7 +142,8 @@ const Admin = defineComponent({
             isAdd,
             reload,
             carts,
-            orders
+            orders,
+            onDelete
         }
     }
 })

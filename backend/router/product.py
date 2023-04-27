@@ -55,7 +55,7 @@ def update_product(id: int, product: schema.ProductCreate):
 def delete_product(id: int):
     # delete product and image
     product = model_to_dict(Product.get_by_id(id))
-    images = product['image']
+    images = product['images']
 
     Product.delete().where(Product.id == product['id']).execute()
     for img in images:
