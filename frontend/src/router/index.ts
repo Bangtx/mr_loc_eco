@@ -25,12 +25,25 @@ const routes: Array<RouteConfig> = [
   {
     path: urlPath.ADMIN.path,
     name: urlPath.ADMIN.name,
-    component: () => import('../pages/Admin/index.vue')
+    component: () => import('../pages/Admin/index.vue'),
+    beforeEnter: (to, from, next) => {
+      const login = localStorage.getItem('login')
+      if (login) {
+        next()
+        return
+      }
+      next({ name: 'Login' })
+    }
   },
   {
     path: urlPath.ProductDetail.path,
     name: urlPath.ProductDetail.name,
     component: () => import('../pages/Products/detail.vue')
+  },
+  {
+    path: urlPath.Login.path,
+    name: urlPath.Login.name,
+    component: () => import('../pages/Login/index.vue')
   }
 ]
 
