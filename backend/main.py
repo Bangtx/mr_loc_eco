@@ -43,6 +43,11 @@ async def read_items():
     """
 
 
+@app.post('/')
+def post_test():
+    return 'ok'
+
+
 app.include_router(api.router)
 
 
