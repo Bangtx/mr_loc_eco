@@ -3,6 +3,7 @@ from config.database import db
 from router import api
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from schema.home import PayloadMsg
 app = FastAPI()
 
 
@@ -44,7 +45,8 @@ async def read_items():
 
 
 @app.post('/')
-def post_test():
+def post_test(payload: PayloadMsg):
+    print('hihi', payload)
     return 'ok'
 
 
