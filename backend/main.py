@@ -4,6 +4,7 @@ from router import api
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from schema.home import PayloadMsg
+from typing import Any
 app = FastAPI()
 
 
@@ -45,7 +46,7 @@ async def read_items():
 
 
 @app.post('/')
-def post_test(payload: PayloadMsg):
+def post_test(payload: Any):
     print('hihi', payload)
     return 'ok'
 
