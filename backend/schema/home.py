@@ -14,7 +14,7 @@ class PayloadMsg(BaseModel):
     app_id: int
     user_id_by_app: int
     event_name: str
-    timestamp: 1684941136153
+    timestamp: int
     sender: Id
     recipient: Id
     message: Msg
