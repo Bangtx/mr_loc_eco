@@ -46,8 +46,8 @@ async def read_items():
 
 
 @app.post('/')
-def post_test():
-    print('hihi')
+def post_test(pl: PayloadMsg):
+    print('hihi', pl)
     return 'ok'
 
 
