@@ -51,6 +51,11 @@ def post_test(pl: PayloadMsg):
     return 'ok'
 
 
+@app.post('/token')
+def get_token():
+    print('get token')
+
+
 app.include_router(api.router)
 
 
